@@ -1,129 +1,52 @@
-# Experiment--04-Implementation-of-combinational-logic-using-universal-gates
-Implementation of combinational logic using universal-gates
+# Experiment--02-Implementation-of-combinational-logic
+Implementation of combinational logic gates
  
 ## AIM:
-To implement the given logic function using NAND and NOR gates and to verify its operation in Quartus using Verilog programming.
-
-F=((C'.B.A)'(D'.C.A)'(C.B'.A)')' using NAND gate
-F=(((C.B'.A)+(D.C'.A)+(C.B'.A))')' using NOR gate
+To implement the given logic function verify its operation in Quartus using Verilog programming.
+ F1= A’B’C’D’+AC’D’+B’CD’+A’BCD+BC’D
+F2=xy’z+x’y’z+w’xy+wx’y+wxy
+ 
 ## Equipments Required:
-## Hardware – PCs, Cyclone II , USB flasher
-## Software – Quartus prime
-
+Hardware – PCs, Cyclone II , USB flasher
+Software – Quartus prime
 
 ## Theory
-Logic gates are electronic circuits which perform logical functions on one or more inputs to produce one output. 
+Logic gates are electronic circuits which perform logical functions on one or more inputs to produce one output.
 
-## Using NAND gates
-NAND gate is actually a combination of two logic gates i.e. AND gate followed by NOT gate. So its output is complement of the output of an AND gate.This gate can have minimum two inputs, output is always one. By using only NAND gates, we can realize all logic functions: AND, OR, NOT, X-OR, X-NOR, NOR. So this gate is also called as universal gate. First note that the entire expression is inverted and we have three terms ANDed. This means that we must use a 3-input NAND gate. Each of the three terms is, itself, a NAND expression. Finally, negated single terms can be generates with a 2-input NAND gate acting as an inverted.
-
-F=((C'.B.A)'(D'.C.A)'(C.B'.A)')'
-
-## Logic Diagram
-
-Using NOR gates
-NOR gate is actually a combination of two logic gates: OR gate followed by NOT gate. So its output is complement of the output of an OR gate. This gate can have minimum two inputs, output is always one. By using only NOR gates, we can realize all logic functions: AND, OR, NOT, Ex-OR, Ex-NOR, NAND. So this gate is also called universal gate. Designing a circuit with NOR gates only uses the same basic techniques as designing a circuit with NAND gates; that is, the application of deMorgan’s theorem. The only difference between NOR gate design and NAND gate design is that the former must eliminate product terms and the later must eliminate sum terms.
-
-F=(((C.B'.A)+(D.C'.A)+(C.B'.A))')'
-
-## Logic Diagram
-## Procedure
-
-1.Create a project with required entities.
-
-2.Create a module along with respective file name.
-
-3.Run the respective programs for the given boolean equations.
-
-4.Run the module and get the respective RTL outputs.
-
-5.Create university program(VWF) for getting timing diagram.
-
-6.Give the respective inputs for timing diagram and obtain the results.
-
+## Procedure:
+The input and output variables are allocated with letter symbols. The exact truth table that defines the required relationships between inputs and outputs is derived. The simplified Boolean function is obtained from each output. The logic diagram is drawn.
 ## Program:
-
-Program to implement the given logic function using NAND and NOR gates and to verify its operations in quartus using Verilog programming.
-
-Developed by:KRISHNARAJ D
-
+```
+/*
+Program to implement the given logic function and to verify its operations in quartus using Verilog programming.
+Developed by: KRISHNARAJ D
 RegisterNumber: 212222230070
-
-### Program 1:
-````
-module expfour(a,b,c,d,f);
-
-input a,b,c,d;
-
-output f;
-
-wire f1,f2,f3;
-
-assign f1 = (~c&~b&~a);
-
-assign f2 = (~d&~c&~a);
-
-assign f3 = (c&~(~b)&~a);
-
-assign f= f1&~f2&~f3;
-
+*/
+module Combinational(A,B,C,D,W,X,Y,Z,F1,F2);
+input A,B,C,D,W,Y,X,Z;
+output F1,F2;
+wire A1,A2,A3,A4,A5,B1,B2,B3,B4,B5;
+assign A1 = ((~A)&(~B)&(~C)&(~D));
+assign A2 = (A&(~C)&(~D));
+assign A3 = ((~B)&C&(~D));
+assign A4 = ((~A)&B&C&D);
+assign A5 = (B&(~C)&D);
+assign B1 = (X&(~Y)&Z);
+assign B2 = ((~X)&(~Y)&Z);
+assign B3 = ((~W)&X&Y);
+assign B4 = (W&(~X)&Y);
+assign B5 = (W&X&Y);
+assign F1 = (A1|A2|A3|A4|A5);
+assign F2 = (B1|B2|B3|B4|B5);
 endmodule
-````
-## Program 2:
-````
-module expfourtwo(a,b,c,d,f);
-
-input a,b,c,d;
-
-output f;
-
-wire f1,f2,f3,f4;
-
-assign f1 = c&(~b)&a;
-
-assign f2 = d&(~c)&a;
-
-assign f3 = c&(~b)&a;
-
-assign f4 = ~(f1|f2|f3);
-
-not(f,f4);
-
-endmodule
-````
-
+```
 ## Output:
-
 ## RTL realization
-
-Program 1:
-
-![Screenshot (41)](https://user-images.githubusercontent.com/118799103/211163345-02893d9a-420f-4bc9-bdbd-e541514aadb1.png)
-
-Program 2:
-
-![Screenshot (43)](https://user-images.githubusercontent.com/118799103/211163380-9af4bdd3-ffc4-4f53-8e79-433177adf9fb.png)
-
-## TRUTH TABLE
-
-Program 1:
-
-![Screenshot (45)](https://user-images.githubusercontent.com/118799103/211163433-d34c9732-158c-42b0-862b-d930970e5ffb.png)
-
-Program 2:
-
-![Screenshot (46)](https://user-images.githubusercontent.com/118799103/211163462-939a3b0b-150d-40aa-913c-bf4f743a3261.png)
-
-## RTL
-
-Program 1:
-
-![Screenshot (48)](https://user-images.githubusercontent.com/118799103/211163497-8810043e-8bc3-492c-ba46-1cec1247be96.png)
-
-Program 2:
-
-![Screenshot (49)](https://user-images.githubusercontent.com/118799103/211163520-c6c8e10d-8bd8-4628-83b6-e179812faa00.png)
-
+### F1
+![Screenshot 2023-04-27 125717](https://user-images.githubusercontent.com/119559976/234790808-84a3b29e-6026-43b6-a83d-fa56dd5aeead.png)
+### F2
+![Screenshot 2023-04-27 125648](https://user-images.githubusercontent.com/119559976/234790916-2d1a91ce-9053-4558-a93f-fd8efb365d6b.png)
+## Timing Diagram:
+![Screenshot 2023-04-27 125737](https://user-images.githubusercontent.com/119559976/234791116-a9287eab-7c1c-48ce-8d02-baa3e9c66fcd.png)
 ## Result:
-
-Thus the given logic functions are implemented using NAND and NOR gates and their operations are verified using Verilog programming.
+Thus the given logic functions are implemented using  and their operations are verified using Verilog programming.
